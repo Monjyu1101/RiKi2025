@@ -1,0 +1,114 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Clip&GPT API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:61101",
+      "description": "Clip&GPT rest server"
+    }
+  ],
+  "paths": {
+    "v0/assistant": {
+      "get": {
+        "summary": "チャットメッセージ送信 (GET)",
+        "description": "チャットメッセージを送信します (GET)",
+        "parameters": [
+          {
+            "name": "request_text",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "こんにちは！"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string",
+                      "enum": ["ok", "ng"]
+                    },
+                    "result_text": {
+                      "type": "string",
+                      "example": "こんにちは！"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "チャットメッセージ送信 (POST)",
+        "description": "チャットメッセージを送信します (POST)",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "request_text": {
+                    "type": "string",
+                    "example": "こんにちは！"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string",
+                      "enum": ["ok", "ng"]
+                    },
+                    "result_text": {
+                      "type": "string",
+                      "example": "こんにちは！"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
