@@ -34,12 +34,12 @@ qLog   = _v6__qLog.qLog_class()
 
 # openai,freeai,ollama チャットボット
 import speech_bot_function
-import speech_bot_openai
-import speech_bot_openai_key as openai_key
-import speech_bot_freeai
-import speech_bot_freeai_key as freeai_key
-import speech_bot_ollama
-import speech_bot_ollama_key as ollama_key
+import speech_old_openai
+import speech_old_openai_key as openai_key
+import speech_old_freeai
+import speech_old_freeai_key as freeai_key
+import speech_old_ollama
+import speech_old_ollama_key as ollama_key
 
 
 
@@ -324,7 +324,7 @@ class _bot:
         self.botFunc.init()
 
         # OPENAI 定義
-        self.openaiAPI = speech_bot_openai.ChatBotAPI()
+        self.openaiAPI = speech_old_openai.ChatBotAPI()
         self.openaiAPI.init(log_queue=log_queue, )
 
         # OPENAI 認証
@@ -522,7 +522,7 @@ class _bot:
             qLog.log('error', self.proc_id, 'openai (ChatGPT) authenticate NG!')
 
         # freeai 定義
-        self.freeaiAPI = speech_bot_freeai._freeaiAPI()
+        self.freeaiAPI = speech_old_freeai._freeaiAPI()
         self.freeaiAPI.init(log_queue=log_queue, )
 
         freeai_api_type     = freeai_key.getkey('freeai','freeai_api_type')
@@ -624,7 +624,7 @@ class _bot:
             qLog.log('error', self.proc_id, 'google (FreeAI) authenticate NG!')
 
         # ollama 定義
-        self.ollamaAPI = speech_bot_ollama._ollamaAPI()
+        self.ollamaAPI = speech_old_ollama._ollamaAPI()
         self.ollamaAPI.init(log_queue=log_queue, )
 
         ollama_api_type     = ollama_key.getkey('ollama','ollama_api_type')

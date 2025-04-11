@@ -37,7 +37,7 @@ from openai.types.beta.threads.runs import ToolCall, ToolCallDelta, RunStep
 
 import tiktoken
 
-import speech_bot_openai_key  as openai_key
+import speech_old_openai_key  as openai_key
 
 
 
@@ -2685,7 +2685,7 @@ Respond according to the following criteria:
 
 if __name__ == '__main__':
 
-        #openaiAPI = speech_bot_openai.ChatBotAPI()
+        #openaiAPI = speech_old_openai.ChatBotAPI()
         openaiAPI = ChatBotAPI()
 
         api_type = openai_key.getkey('chatgpt','openai_api_type')
