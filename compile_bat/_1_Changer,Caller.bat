@@ -52,6 +52,8 @@ ECHO -------
 
 set pyname=RiKi_winChanger
     echo;
+    echo taskkill /im %pyname%.exe /f >nul
+         taskkill /im %pyname%.exe /f >nul
     echo %pyname%.py
     pyinstaller %pyname%.py  -F --log-level ERROR --icon="_icons/%pyname%.ico"
 IF EXIST "dist\%pyname%.exe"  ECHO "%pyname%.exe"
@@ -67,6 +69,8 @@ rem del  "%pyname%.exe"
 
 set pyname=RiKi_phoenixCaller
     echo;
+    echo taskkill /im %pyname%.exe /f >nul
+         taskkill /im %pyname%.exe /f >nul
     echo %pyname%.py
     pyinstaller %pyname%.py  -F --log-level ERROR --icon="_icons/%pyname%.ico"
 IF EXIST "dist\%pyname%.exe"  ECHO "%pyname%.exe"
@@ -82,6 +86,8 @@ rem del  "%pyname%.exe"
 
 set pyname=RiKi_showMeCaller
     echo;
+    echo taskkill /im %pyname%.exe /f >nul
+         taskkill /im %pyname%.exe /f >nul
     echo %pyname%.py
     pyinstaller %pyname%.py  -F --log-level ERROR --icon="_icons/RiKi_showMeVideo24.ico"
 IF EXIST "dist\%pyname%.exe"  ECHO "%pyname%.exe"

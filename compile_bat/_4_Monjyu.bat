@@ -23,6 +23,8 @@ ECHO -------
 
 set pyname=RiKi_Monjyu
     echo;
+    echo taskkill /im %pyname%.exe /f >nul
+         taskkill /im %pyname%.exe /f >nul
     echo %pyname%.py
        pyinstaller %pyname%.py  -F --log-level ERROR --icon="_icons/%pyname%.ico"
 
@@ -37,8 +39,28 @@ rem del  "%pyname%.exe"
 
 
 
+set pyname=RiKi_MonjyuMCP
+    echo;
+    echo taskkill /im %pyname%.exe /f >nul
+         taskkill /im %pyname%.exe /f >nul
+    echo %pyname%.py
+       pyinstaller %pyname%.py  -F --log-level ERROR --icon="_icons/RiKi_Monjyu.ico"
+
+IF EXIST "dist\%pyname%.exe"  ECHO "%pyname%.exe"
+    copy "dist\%pyname%.exe"       "%pyname%.exe"
+    del  "%pyname%.spec"
+    copy "%pyname%.exe"        "C:\RiKi_assistant\%pyname%.exe"
+    copy "%pyname%.exe"        "C:\_‹¤—L\Worker\%pyname%.exe"
+    copy "%pyname%.exe"        "C:\_‹¤—L\Monjyu\%pyname%.exe"
+    ping  localhost -w 1000 -n 1 >nul
+rem del  "%pyname%.exe"
+
+
+
 set pyname=RiKi_Monjyu_debug
     echo;
+    echo taskkill /im %pyname%.exe /f >nul
+         taskkill /im %pyname%.exe /f >nul
     echo %pyname%.py
        pyinstaller %pyname%.py  -F --log-level ERROR
 

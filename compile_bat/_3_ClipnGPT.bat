@@ -26,6 +26,9 @@ rem           pip  install --upgrade pip
     python -m pip  install --upgrade setuptools
     python -m pip  install --upgrade pyinstaller
 
+    python -m pip  install --upgrade mcp
+    python -m pip  install --upgrade pydantic
+
 ECHO;
 ECHO -------
 ECHO etc
@@ -115,6 +118,8 @@ ECHO -------
 
 set pyname=RiKi_ClipnGPT
     echo;
+    echo taskkill /im %pyname%.exe /f >nul
+         taskkill /im %pyname%.exe /f >nul
     echo %pyname%.py
 rem    pyinstaller %pyname%.py  -F --log-level ERROR --icon="_icons/%pyname%.ico"
 rem    pyinstaller %pyname%.py  -F --log-level ERROR --collect-all=langchain --hidden-import=codeinterpreterapi --hidden-import=jupyter --collect-all=jupyter-kernel-gateway --hidden-import=tiktoken_ext.openai_public --hidden-import=tiktoken_ext --icon="_icons/%pyname%.ico"

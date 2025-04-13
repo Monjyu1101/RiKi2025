@@ -66,6 +66,8 @@ ECHO -------
 
 set pyname=RiKi_cpuClock24
     echo;
+    echo taskkill /im %pyname%.exe /f >nul
+         taskkill /im %pyname%.exe /f >nul
     echo %pyname%.py
     pyinstaller %pyname%.py  -F --log-level ERROR --icon="_icons/%pyname%.ico"
 IF EXIST "dist\%pyname%.exe"  ECHO "%pyname%.exe"
