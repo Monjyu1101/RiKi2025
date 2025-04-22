@@ -24,7 +24,6 @@ logger = logging.getLogger(MODULE_NAME)
 import time
 import requests
 
-import argparse
 import asyncio
 import json
 import sys
@@ -271,15 +270,10 @@ async def main(**args) -> None:
 
 
 if __name__ == "__main__":
-    # 引数解析
-    parser = argparse.ArgumentParser(description='MCP サーバー')
-    parser.add_argument('--port', type=str, help='使用するポート番号 (SSEモード)')
-    args = parser.parse_args()
-    logger.info(f"コマンドライン引数: {args}")
 
     # メイン実行
-    logger.info("MCPサーバーの起動プロセスを開始")
+    logger.info(f"{ MODULE_NAME }の起動プロセスを開始")
     try:
-        asyncio.run(main(**vars(args)))
+        asyncio.run(main())
     except Exception as e:
         logger.error(f"エラーが発生しました: {e}", exc_info=True)
