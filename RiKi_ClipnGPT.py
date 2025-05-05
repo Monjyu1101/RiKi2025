@@ -171,9 +171,13 @@ if __name__ == '__main__':
 
     # 制限設定
     limit_date = '{:1d}{:1d}'.format(int(float(3.0)), int(float(1.0)))
-    limit_date = '{:1d}{:1d}'.format(int(float(1.0)), int(float(2.0))) + '/' + limit_date
+    limit_date = '{:1d}{:1d}'.format(int(float(1.0)), int(float(0.0))) + '/' + limit_date
     limit_date = '/' + limit_date
     limit_date = '{:3d}{:1d}'.format(int(float(202.0)), int(float(6.0))) + limit_date
+    dt = datetime.datetime.now()
+    dateinfo_today = dt.strftime('%Y/%m/%d')
+    dt = datetime.datetime.strptime(limit_date, '%Y/%m/%d') + datetime.timedelta(days=-180)
+    dateinfo_start = dt.strftime('%Y/%m/%d')
     main_start = time.time()
 
     # ディレクトリ作成(基本用)
@@ -438,7 +442,11 @@ if __name__ == '__main__':
                 time.sleep(1.00)
 
         # ライセンス制限
-        qLog.log('warning', main_id, '利用ライセンスは、 ' + limit_date + ' まで有効です。')
+        if (dateinfo_today >= dateinfo_start):
+            qLog.log('warning', main_id, '利用ライセンス(Python3.10support)は、 ' + limit_date + ' まで有効です。')
+        if (dateinfo_today > limit_date):
+            time.sleep(60)
+            sys.exit(0)
 
         seigen = ''
         if (limit_mode == True):

@@ -94,10 +94,10 @@ if __name__ == '__main__':
     main_id   = '{0:10s}'.format(main_name).replace(' ', '_')
 
     # ライセンス設定
-    limit_date     = '2026/12/31'
+    limit_date     = '2026/10/31'
     dt = datetime.datetime.now()
     dateinfo_today = dt.strftime('%Y/%m/%d')
-    dt = datetime.datetime.strptime(limit_date, '%Y/%m/%d') + datetime.timedelta(days=-365)
+    dt = datetime.datetime.strptime(limit_date, '%Y/%m/%d') + datetime.timedelta(days=-180)
     dateinfo_start = dt.strftime('%Y/%m/%d')
     main_start = time.time()
 
@@ -139,7 +139,7 @@ if __name__ == '__main__':
 
          # ライセンス制限
         if (dateinfo_today >= dateinfo_start):
-            qLog.log('warning', main_id, '利用ライセンスは、 ' + limit_date + ' まで有効です。')
+            qLog.log('warning', main_id, '利用ライセンス(Python3.10support)は、 ' + limit_date + ' まで有効です。')
         if (dateinfo_today > limit_date):
             time.sleep(60)
             sys.exit(0)

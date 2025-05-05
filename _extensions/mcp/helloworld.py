@@ -24,7 +24,6 @@ logging.basicConfig(
     datefmt='%H:%M:%S'
 )
 logger = logging.getLogger(MODULE_NAME)
-logging.getLogger('uvicorn.access').setLevel(logging.WARNING)
 
 
 import argparse

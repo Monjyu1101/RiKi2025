@@ -1042,8 +1042,8 @@ if __name__ == '__main__':
             filePath         = []
 
             if True:
-                import    speech_bot_function
-                botFunc = speech_bot_function.botFunction()
+                import    speech_bot__function
+                botFunc = speech_bot__function.botFunction()
 
                 res, msg = botFunc.functions_load(
                     functions_path='_extensions/function/', secure_level='low', )

@@ -33,7 +33,7 @@ import   _v6__qLog
 qLog   = _v6__qLog.qLog_class()
 
 # openai,freeai,ollama チャットボット
-import speech_bot_function
+import speech_bot__function
 import speech_old_openai
 import speech_old_openai_key as openai_key
 import speech_old_freeai
@@ -320,7 +320,7 @@ class _bot:
                 self.ollama_server          = use_ollama_server_ip
 
         # function 定義
-        self.botFunc = speech_bot_function.botFunction()
+        self.botFunc = speech_bot__function.botFunction()
         self.botFunc.init()
 
         # OPENAI 定義
