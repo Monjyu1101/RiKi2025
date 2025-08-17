@@ -114,7 +114,7 @@ if __name__ == '__main__':
 
         # ライセンス制限
         if (dateinfo_today >= dateinfo_start):
-            qLog.log('warning', main_id, '利用ライセンス(Python3.10support)は、 ' + limit_date + ' まで有効です。')
+            qLog.log('warning', main_id, '利用ライセンス(Python3.10サポート)は、 ' + limit_date + ' まで有効です。')
         if (dateinfo_today > limit_date):
             time.sleep(60)
             sys.exit(0)

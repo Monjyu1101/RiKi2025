@@ -47,7 +47,7 @@ class _conf:
             self.cgpt_guiTheme                  = 'Dark' # 'Default1', 'Dark',
             self.cgpt_keep_on_top               = 'no'
             self.cgpt_secure_level              = 'medium'
-            self.cgpt_addins_path               = '_extensions/clipngpt/'
+            self.cgpt_addins_path               = '_extensions/ClipnGPT/'
             self.cgpt_functions_path            = '_extensions/function/'
 
             self.cgpt_engine_greeting           = 'auto'
@@ -101,18 +101,18 @@ class _conf:
             self.restui_ssl_key                 = '_config/localhost.key'
             self.restui_auth_key                = 'secret'
 
-            self.webui_start                    = 'auto'
-            self.webui_local_ip                 = '0.0.0.0'
-            self.webui_local_port               = '51101'
-            self.webui_allow_ip                 = '255.255.255.255'
-            self.webui_ssl                      = 'no'
-            self.webui_ssl_cert                 = '_config/localhost.crt'
-            self.webui_ssl_key                  = '_config/localhost.key'
-            self.webui_multi_session            = 10
-            self.webui_admin_id                 = 'admin'
-            self.webui_admin_pw                 = 'secret'
-            self.webui_guest_id                 = 'guest'
-            self.webui_guest_pw                 = 'guest'
+            self.webUI_start                    = 'auto'
+            self.webUI_local_ip                 = '0.0.0.0'
+            self.webUI_local_port               = '51101'
+            self.webUI_allow_ip                 = '255.255.255.255'
+            self.webUI_ssl                      = 'no'
+            self.webUI_ssl_cert                 = '_config/localhost.crt'
+            self.webUI_ssl_key                  = '_config/localhost.key'
+            self.webUI_multi_session            = 10
+            self.webUI_admin_id                 = 'admin'
+            self.webUI_admin_pw                 = 'secret'
+            self.webUI_guest_id                 = 'guest'
+            self.webUI_guest_pw                 = 'guest'
 
             self.txt_input_path                 = 'temp/chat_input/'
             self.txt_output_path                = 'temp/chat_output/'
@@ -219,18 +219,18 @@ class _conf:
             dic['restui_ssl_key']               = self.restui_ssl_key
             dic['restui_auth_key']              = self.restui_auth_key
 
-            dic['webui_start']                  = self.webui_start
-            dic['webui_local_ip']               = self.webui_local_ip
-            dic['webui_local_port']             = self.webui_local_port
-            dic['webui_allow_ip']               = self.webui_allow_ip
-            dic['webui_ssl']                    = self.webui_ssl
-            dic['webui_ssl_cert']               = self.webui_ssl_cert
-            dic['webui_ssl_key']                = self.webui_ssl_key
-            dic['webui_multi_session']          = self.webui_multi_session
-            dic['webui_admin_id']               = self.webui_admin_id
-            dic['webui_admin_pw']               = self.webui_admin_pw
-            dic['webui_guest_id']               = self.webui_guest_id
-            dic['webui_guest_pw']               = self.webui_guest_pw
+            dic['webUI_start']                  = self.webUI_start
+            dic['webUI_local_ip']               = self.webUI_local_ip
+            dic['webUI_local_port']             = self.webUI_local_port
+            dic['webUI_allow_ip']               = self.webUI_allow_ip
+            dic['webUI_ssl']                    = self.webUI_ssl
+            dic['webUI_ssl_cert']               = self.webUI_ssl_cert
+            dic['webUI_ssl_key']                = self.webUI_ssl_key
+            dic['webUI_multi_session']          = self.webUI_multi_session
+            dic['webUI_admin_id']               = self.webUI_admin_id
+            dic['webUI_admin_pw']               = self.webUI_admin_pw
+            dic['webUI_guest_id']               = self.webUI_guest_id
+            dic['webUI_guest_pw']               = self.webUI_guest_pw
 
             dic['txt_input_path']               = self.txt_input_path
             dic['txt_output_path']              = self.txt_output_path
@@ -318,18 +318,18 @@ class _conf:
             self.restui_ssl_key                 = dic['restui_ssl_key']
             self.restui_auth_key                = dic['restui_auth_key']
 
-            self.webui_start                    = dic['webui_start']
-            self.webui_local_ip                 = dic['webui_local_ip']
-            self.webui_local_port               = dic['webui_local_port']
-            self.webui_allow_ip                 = dic['webui_allow_ip']
-            self.webui_ssl                      = dic['webui_ssl']
-            self.webui_ssl_cert                 = dic['webui_ssl_cert']
-            self.webui_ssl_key                  = dic['webui_ssl_key']
-            self.webui_multi_session            = dic['webui_multi_session']
-            self.webui_admin_id                 = dic['webui_admin_id']
-            self.webui_admin_pw                 = dic['webui_admin_pw']
-            self.webui_guest_id                 = dic['webui_guest_id']
-            self.webui_guest_pw                 = dic['webui_guest_pw']
+            self.webUI_start                    = dic['webUI_start']
+            self.webUI_local_ip                 = dic['webUI_local_ip']
+            self.webUI_local_port               = dic['webUI_local_port']
+            self.webUI_allow_ip                 = dic['webUI_allow_ip']
+            self.webUI_ssl                      = dic['webUI_ssl']
+            self.webUI_ssl_cert                 = dic['webUI_ssl_cert']
+            self.webUI_ssl_key                  = dic['webUI_ssl_key']
+            self.webUI_multi_session            = dic['webUI_multi_session']
+            self.webUI_admin_id                 = dic['webUI_admin_id']
+            self.webUI_admin_pw                 = dic['webUI_admin_pw']
+            self.webUI_guest_id                 = dic['webUI_guest_id']
+            self.webUI_guest_pw                 = dic['webUI_guest_pw']
 
             self.txt_input_path                 = dic['txt_input_path']
             self.txt_output_path                = dic['txt_output_path']

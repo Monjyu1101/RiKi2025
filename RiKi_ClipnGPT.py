@@ -143,8 +143,8 @@ import      RiKi_ClipnGPT_proc
 proc      = RiKi_ClipnGPT_proc._proc()
 import      RiKi_ClipnGPT_restui
 restui    = RiKi_ClipnGPT_restui._restui()
-import      RiKi_ClipnGPT_webui
-webui     = RiKi_ClipnGPT_webui._webui()
+import      RiKi_ClipnGPT_webUI
+webUI     = RiKi_ClipnGPT_webUI._webUI()
 
 # シグナル処理
 import signal
@@ -430,20 +430,20 @@ if __name__ == '__main__':
                 restui.flask_start()
                 time.sleep(1.00)
 
-        # webui 初期化
-        webui.init(qLog_fn=qLog_fn, runMode=runMode, limit_mode=limit_mode,
+        # webUI 初期化
+        webUI.init(qLog_fn=qLog_fn, runMode=runMode, limit_mode=limit_mode,
                    conf=conf, chatbot=bot, chatproc=proc, 
                    flask_base=qPath_base, )
 
-        # webui 起動 (機能制限時は利用不可！)
+        # webUI 起動 (機能制限時は利用不可！)
         if (limit_mode == False):
-            if (conf.webui_start == 'yes') or (conf.webui_start == 'auto'):
-                webui.flask_start()
+            if (conf.webUI_start == 'yes') or (conf.webUI_start == 'auto'):
+                webUI.flask_start()
                 time.sleep(1.00)
 
         # ライセンス制限
         if (dateinfo_today >= dateinfo_start):
-            qLog.log('warning', main_id, '利用ライセンス(Python3.10support)は、 ' + limit_date + ' まで有効です。')
+            qLog.log('warning', main_id, '利用ライセンス(Python3.10サポート)は、 ' + limit_date + ' まで有効です。')
         if (dateinfo_today > limit_date):
             time.sleep(60)
             sys.exit(0)

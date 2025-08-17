@@ -57,7 +57,9 @@ rem python -m pip  install --upgrade opencv-contrib-python==4.9.0.80
     python -m pip  install --upgrade opencv-contrib-python==4.10.0.84
 
 rem python -m pip  install --upgrade pysimplegui
-    python -m pip  install --force-reinstall --extra-index-url https://PySimpleGUI.net/install PySimpleGUI
+rem python -m pip  install --force-reinstall --extra-index-url https://PySimpleGUI.net/install PySimpleGUI
+    python -m pip  install --upgrade PySimpleGUI-4-foss
+
     python -m pip  install --upgrade pillow
     python -m pip  install --upgrade flask
     python -m pip  install --upgrade fastapi
@@ -92,6 +94,7 @@ rem python -m pip  install --upgrade wave
 rem python -m pip  install --upgrade chardet
 rem python -m pip  install --upgrade botocore
 
+    python -m pip  install --upgrade sqlite3
     python -m pip  install --upgrade pandas
     python -m pip  install --upgrade openpyxl
     python -m pip  install --upgrade pyodbc
@@ -158,6 +161,7 @@ IF EXIST "C:\_‹¤—L\Monjyu\_cache"              RD "C:\_‹¤—L\Monjyu\_cache"      
 
 ECHO; uninstall
 python -m pip uninstall pysimplegui -y
+python -m pip uninstall PySimpleGUI-4-foss -y
 
 PAUSE
 

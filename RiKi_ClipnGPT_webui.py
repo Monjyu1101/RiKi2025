@@ -23,8 +23,8 @@ from gtts import gTTS
 import base64
 
 from flask import Flask, render_template, session, request, redirect, url_for, send_from_directory, jsonify, Response, make_response, abort
-qPath_templates = '_webui/clipngpt'
-qPath_static    = '_webui/clipngpt/static'
+qPath_templates = '_webUI/ClipnGPT'
+qPath_static    = '_webUI/ClipnGPT/static'
 
 # インターフェース
 qPath_temp   = 'temp/'
@@ -39,7 +39,7 @@ qLog   = _v6__qLog.qLog_class()
 
 
 
-class _webui:
+class _webUI:
 
     def __init__(self, ):
 
@@ -50,18 +50,18 @@ class _webui:
         self.chatproc                   = None
         self.flask_base                 = ''
 
-        self.webui_local_ip             = '0.0.0.0'
-        self.webui_local_port           = 51101
-        self.webui_allow_ip             = '255.255.255.255'
-        self.webui_allow_mask           = self.mask_from_ip('255.255.255.255')
-        self.webui_multi_session        = 5
-        self.webui_ssl                  = 'no'
-        self.webui_ssl_cert             = ''
-        self.webui_ssl_key              = ''
-        self.webui_admin_id             = 'admin'
-        self.webui_admin_pw             = 'secret'
-        self.webui_guest_id             = 'guest'
-        self.webui_guest_pw             = 'guest'
+        self.webUI_local_ip             = '0.0.0.0'
+        self.webUI_local_port           = 51101
+        self.webUI_allow_ip             = '255.255.255.255'
+        self.webUI_allow_mask           = self.mask_from_ip('255.255.255.255')
+        self.webUI_multi_session        = 5
+        self.webUI_ssl                  = 'no'
+        self.webUI_ssl_cert             = ''
+        self.webUI_ssl_key              = ''
+        self.webUI_admin_id             = 'admin'
+        self.webUI_admin_pw             = 'secret'
+        self.webUI_guest_id             = 'guest'
+        self.webUI_guest_pw             = 'guest'
 
         self.tts_seq                    = 0
         self.timeOut                    = 120
@@ -111,7 +111,7 @@ class _webui:
         self.limit_mode          = limit_mode
 
         # ログ
-        self.proc_name = 'webui'
+        self.proc_name = 'webUI'
         self.proc_id   = '{0:10s}'.format(self.proc_name).replace(' ', '_')
         if (not os.path.isdir(qPath_log)):
             os.makedirs(qPath_log)
@@ -131,37 +131,37 @@ class _webui:
         self.flask_base          = flask_base
 
         if (conf is not None):
-            self.webui_local_ip         = conf.webui_local_ip
-            self.webui_local_port       = int(conf.webui_local_port)
-            self.webui_allow_ip         = conf.webui_allow_ip 
-            self.webui_allow_mask       = self.mask_from_ip(conf.webui_allow_ip)
-            self.webui_multi_session    = int(conf.webui_multi_session)
-            self.webui_ssl              = conf.webui_ssl
-            self.webui_ssl_cert         = conf.webui_ssl_cert
-            self.webui_ssl_key          = conf.webui_ssl_key
-            self.webui_admin_id         = conf.webui_admin_id
-            self.webui_admin_pw         = conf.webui_admin_pw
-            self.webui_guest_id         = conf.webui_guest_id
-            self.webui_guest_pw         = conf.webui_guest_pw
+            self.webUI_local_ip         = conf.webUI_local_ip
+            self.webUI_local_port       = int(conf.webUI_local_port)
+            self.webUI_allow_ip         = conf.webUI_allow_ip 
+            self.webUI_allow_mask       = self.mask_from_ip(conf.webUI_allow_ip)
+            self.webUI_multi_session    = int(conf.webUI_multi_session)
+            self.webUI_ssl              = conf.webUI_ssl
+            self.webUI_ssl_cert         = conf.webUI_ssl_cert
+            self.webUI_ssl_key          = conf.webUI_ssl_key
+            self.webUI_admin_id         = conf.webUI_admin_id
+            self.webUI_admin_pw         = conf.webUI_admin_pw
+            self.webUI_guest_id         = conf.webUI_guest_id
+            self.webUI_guest_pw         = conf.webUI_guest_pw
 
         # チャット履歴
-        self.webui_last_session = 1
-        self.webui_sid          = {}
-        self.webui_sno          = {}
-        self.webui_user         = {}
-        self.webui_histories    = {}
-        self.webui_files        = {}
-        self.webui_last_access  = {}
+        self.webUI_last_session = 1
+        self.webUI_sid          = {}
+        self.webUI_sno          = {}
+        self.webUI_user         = {}
+        self.webUI_histories    = {}
+        self.webUI_files        = {}
+        self.webUI_last_access  = {}
         self.gpt_histories      = {}
         self.gpt_role           = {}
         self.gpt_req            = {}
         self.gpt_result_queue   = {}
-        for sno in range(1, 2 + self.webui_multi_session):
-            self.webui_last_access[sno] = time.time()
+        for sno in range(1, 2 + self.webUI_multi_session):
+            self.webUI_last_access[sno] = time.time()
 
             for m in self.gpt_ini_role:
-                self.webui_histories[str(sno) + str(m)]  = []
-                self.webui_files[str(sno) + str(m)]      = []
+                self.webUI_histories[str(sno) + str(m)]  = []
+                self.webUI_files[str(sno) + str(m)]      = []
                 self.gpt_histories[str(sno) + str(m)]    = []
                 self.gpt_role[str(sno) + str(m)]         = self.gpt_ini_role[str(m)]
                 self.gpt_req[str(sno) + str(m)]          = self.gpt_ini_req[str(m)]
@@ -193,15 +193,15 @@ class _webui:
     def ip_in_subnet(self, ip):
         if (ip == '127.0.0.1'):
             return True
-        if (self.webui_allow_mask == 0):
+        if (self.webUI_allow_mask == 0):
             return True
         ip_int = int(''.join([f"{int(i):08b}" for i in ip.split('.')]), 2)        
         # Mask the allow_ip to get the actual subnet address
         subnet_ip = '.'.join([str(int(octet) & (255 if mask_bit > 0 else 0)) 
-        for octet, mask_bit in zip(self.webui_allow_ip.split('.'), 
-            [(self.webui_allow_mask - i * 8) if (self.webui_allow_mask - i * 8) > 0 else 0 for i in range(4)])])
+        for octet, mask_bit in zip(self.webUI_allow_ip.split('.'), 
+            [(self.webUI_allow_mask - i * 8) if (self.webUI_allow_mask - i * 8) > 0 else 0 for i in range(4)])])
         subnet_int = int(''.join([f"{int(i):08b}" for i in subnet_ip.split('.')]), 2)
-        return (ip_int & (0xFFFFFFFF << (32 - self.webui_allow_mask))) == subnet_int
+        return (ip_int & (0xFFFFFFFF << (32 - self.webUI_allow_mask))) == subnet_int
 
     def flask_start(self):
         qLog.log('info', self.proc_id, 'start')
@@ -209,12 +209,12 @@ class _webui:
         self.flask_thread.start()
 
     def flask_proc(self):
-        if (self.webui_ssl == 'yes'):
-            self.app.run(host=self.webui_local_ip, port=self.webui_local_port,
-                        ssl_context=(self.webui_ssl_cert, self.webui_ssl_key),
+        if (self.webUI_ssl == 'yes'):
+            self.app.run(host=self.webUI_local_ip, port=self.webUI_local_port,
+                        ssl_context=(self.webUI_ssl_cert, self.webUI_ssl_key),
                         debug=True, use_reloader=False)
         else:
-            self.app.run(host=self.webui_local_ip, port=self.webui_local_port,
+            self.app.run(host=self.webUI_local_ip, port=self.webUI_local_port,
                         debug=True, use_reloader=False)
 
     def flask_routes(self):
@@ -236,13 +236,13 @@ class _webui:
             client_ip = request.remote_addr
             qLog.log('info', self.proc_id, f"{client_ip} /")
 
-            sid = session.get('clipngpt_sid')
+            sid = session.get('ClipnGPT_sid')
             sno = None
             if (sid):
-                sno = self.webui_sid.get(sid)
-                if (sid != self.webui_sno[sno]):
+                sno = self.webUI_sid.get(sid)
+                if (sid != self.webUI_sno[sno]):
                     return redirect(url_for('login'))
-                self.webui_last_access[sno] = time.time()
+                self.webUI_last_access[sno] = time.time()
             else:
                 sid = None
                 sno = None
@@ -264,63 +264,63 @@ class _webui:
   
                 # Check id,pw
                 user_id  = ''
-                if (    (username.lower() == self.webui_admin_id.lower())  \
-                    and (password == self.webui_admin_pw)):
-                         user_id = self.webui_admin_id
-                if (    (username.lower() == self.webui_guest_id.lower()) \
-                    and (password == self.webui_guest_pw)):
-                         user_id = self.webui_guest_id
+                if (    (username.lower() == self.webUI_admin_id.lower())  \
+                    and (password == self.webUI_admin_pw)):
+                         user_id = self.webUI_admin_id
+                if (    (username.lower() == self.webUI_guest_id.lower()) \
+                    and (password == self.webUI_guest_pw)):
+                         user_id = self.webUI_guest_id
                 if (user_id == ''):
                         msg = 'Check Username and Password'
                         return render_template('login.html', username=username, password=password, msg=msg, )
 
                 # Guest access ok ?
-                if (user_id == self.webui_guest_id):
-                    if (self.webui_multi_session < 1):
+                if (user_id == self.webUI_guest_id):
+                    if (self.webUI_multi_session < 1):
                         msg = 'Sorry, Guest use is disabled'
                         return render_template('login.html', username=username, password=password, msg=msg, )
 
                 # login 処理
-                #sid = session.get('clipngpt_sid') or str(os.urandom(24))
+                #sid = session.get('ClipnGPT_sid') or str(os.urandom(24))
                 sid = str(os.urandom(24))
                 sno = None
 
                 # Adminの場合
-                if (user_id.lower() == self.webui_admin_id.lower()):
+                if (user_id.lower() == self.webUI_admin_id.lower()):
                     sno = 1
 
                 # ゲストの場合、一番古いのを使う。
-                if (user_id.lower() == self.webui_guest_id.lower()):
+                if (user_id.lower() == self.webUI_guest_id.lower()):
                     s = 0
                     max_time = time.time()
-                    for s in range(2, 2 + self.webui_multi_session):
-                        if (self.webui_last_access.get(s) is None):
+                    for s in range(2, 2 + self.webUI_multi_session):
+                        if (self.webUI_last_access.get(s) is None):
                             sno = s
                             max_time = 0
-                        elif (self.webui_last_access.get(s) < max_time):
+                        elif (self.webUI_last_access.get(s) < max_time):
                             sno = s
-                            max_time = self.webui_last_access.get(s)
+                            max_time = self.webUI_last_access.get(s)
                     if (sno != 0):
-                        self.webui_last_session = sno
+                        self.webUI_last_session = sno
                     else:
-                        self.webui_last_session += 1
-                        if (self.webui_last_session > self.webui_multi_session):
-                            self.webui_last_session = 2
-                            sno = self.webui_last_session
+                        self.webUI_last_session += 1
+                        if (self.webUI_last_session > self.webUI_multi_session):
+                            self.webUI_last_session = 2
+                            sno = self.webUI_last_session
 
                 # セッションsid,snoを設定
-                session['clipngpt_sid'] = sid
-                self.webui_sid[sid]     = sno
-                self.webui_sno[sno]     = sid
-                self.webui_user[sno]    = user_id
-                self.webui_last_access[sno] = time.time()
+                session['ClipnGPT_sid'] = sid
+                self.webUI_sid[sid]     = sno
+                self.webUI_sno[sno]     = sid
+                self.webUI_user[sno]    = user_id
+                self.webUI_last_access[sno] = time.time()
 
                 # ゲストの場合、履歴もクリア。
                 for m in self.gpt_ini_role:
-                    #self.webui_histories[str(sno) + str(m)]  = []
-                    self.webui_files[str(sno) + str(m)]  = []
-                    if (user_id == self.webui_guest_id):
-                        self.webui_histories[str(sno) + str(m)]  = []
+                    #self.webUI_histories[str(sno) + str(m)]  = []
+                    self.webUI_files[str(sno) + str(m)]  = []
+                    if (user_id == self.webUI_guest_id):
+                        self.webUI_histories[str(sno) + str(m)]  = []
                         self.gpt_histories[str(sno) + str(m)]    = []
                         self.gpt_role[str(sno) + str(m)]         = self.gpt_ini_role[str(m)]
                         self.gpt_req[str(sno) + str(m)]          = self.gpt_ini_req[str(m)]
@@ -336,23 +336,23 @@ class _webui:
             client_ip = request.remote_addr
             qLog.log('info', self.proc_id, f"{client_ip} /logout")
 
-            sid = session.get('clipngpt_sid')
+            sid = session.get('ClipnGPT_sid')
             if (not sid):
                 return redirect(url_for('/'))
-            sno = self.webui_sid.get(sid)
-            #if (sid != self.webui_sno.get(sno)):
+            sno = self.webUI_sid.get(sid)
+            #if (sid != self.webUI_sno.get(sno)):
             #    return "このセッションは無効です。再ログインしてください。"
  
-            if (sid != self.webui_sno.get(sno)) \
+            if (sid != self.webUI_sno.get(sno)) \
             or (request.method == 'POST'):
 
                 # セッションsidを破棄
-                session.pop('clipngpt_sid', None)
+                session.pop('ClipnGPT_sid', None)
 
                 return redirect(url_for('index'))
 
             msg = 'ログアウトしますか？'
-            username = self.webui_user.get(sno)
+            username = self.webUI_user.get(sno)
             return render_template('logout.html', sid=sid, sno=sno, msg=msg, username=username, )
 
         @self.app.route('/chat', methods=['GET', 'POST'])
@@ -361,13 +361,13 @@ class _webui:
             mode = request.args.get('mode')
             qLog.log('info', self.proc_id, f"{client_ip} /chat?mode={mode}")
 
-            sid = session.get('clipngpt_sid')
+            sid = session.get('ClipnGPT_sid')
             if (not sid):
                 return redirect(url_for('login'))
-            sno = self.webui_sid.get(sid)
-            if (sid != self.webui_sno.get(sno)):
+            sno = self.webUI_sid.get(sid)
+            if (sid != self.webUI_sno.get(sno)):
                 return redirect(url_for('login'))
-            self.webui_last_access[sno] = time.time()
+            self.webUI_last_access[sno] = time.time()
  
             return render_template('chat.html', mode=mode, sid=sid, sno=sno, )
 
@@ -376,15 +376,15 @@ class _webui:
             client_ip = request.remote_addr
             qLog.log('info', self.proc_id, f"{client_ip} /chat/send_message")
 
-            sid = session.get('clipngpt_sid')
+            sid = session.get('ClipnGPT_sid')
             if (not sid):
                 #return "このセッションは無効です。再ログインしてください。"
                 return jsonify([])
-            sno = self.webui_sid.get(sid)
-            if (sid != self.webui_sno.get(sno)):
+            sno = self.webUI_sid.get(sid)
+            if (sid != self.webUI_sno.get(sno)):
                 #return "このセッションは無効です。再ログインしてください。"
                 return jsonify([])
-            self.webui_last_access[sno] = time.time()
+            self.webUI_last_access[sno] = time.time()
 
             mode = request.form['mode']
             msg  = request.form['message'].rstrip()
@@ -406,8 +406,8 @@ class _webui:
                 gpt_sysText = self.gpt_role.get(str(sno) + str(mode), '')
                 gpt_reqText = self.gpt_req.get(str(sno) + str(mode), '')
                 gpt_inpText = msg
-                gpt_files   = self.webui_files[str(sno) + str(mode)]
-                self.webui_files[str(sno) + str(mode)] = []
+                gpt_files   = self.webUI_files[str(sno) + str(mode)]
+                self.webUI_files[str(sno) + str(mode)] = []
 
                 if (sno == 1): # admin
                     interface  = 'web-admin'
@@ -457,12 +457,12 @@ class _webui:
                 isImage = path.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))
 
             try:
-                self.webui_histories[str(sno) + str(mode)].append({'sender':'user', 'message': message, 'timestamp': timestamp, })
-                self.webui_histories[str(sno) + str(mode)].append({'sender':'gpt' , 'message': response, 'timestamp': timestamp, 'downloadLink': downloadLink, "isImage": isImage})
+                self.webUI_histories[str(sno) + str(mode)].append({'sender':'user', 'message': message, 'timestamp': timestamp, })
+                self.webUI_histories[str(sno) + str(mode)].append({'sender':'gpt' , 'message': response, 'timestamp': timestamp, 'downloadLink': downloadLink, "isImage": isImage})
             except:
-                self.webui_histories[str(sno) + str(mode)] = []
-                self.webui_histories[str(sno) + str(mode)].append({'sender':'user', 'message': message, 'timestamp': timestamp, })
-                self.webui_histories[str(sno) + str(mode)].append({'sender':'gpt' , 'message': response, 'timestamp': timestamp, 'downloadLink': downloadLink, "isImage": isImage})
+                self.webUI_histories[str(sno) + str(mode)] = []
+                self.webUI_histories[str(sno) + str(mode)].append({'sender':'user', 'message': message, 'timestamp': timestamp, })
+                self.webUI_histories[str(sno) + str(mode)].append({'sender':'gpt' , 'message': response, 'timestamp': timestamp, 'downloadLink': downloadLink, "isImage": isImage})
 
             return jsonify({
                 "response": response,
@@ -477,15 +477,15 @@ class _webui:
             mode = request.args.get('mode')
             qLog.log('info', self.proc_id, f"{client_ip} /chat/get_history?mode={mode}")
 
-            sid = session.get('clipngpt_sid')
+            sid = session.get('ClipnGPT_sid')
             if (not sid):
                 return jsonify([])
-            sno = self.webui_sid.get(sid)
-            if (sid != self.webui_sno.get(sno)):
+            sno = self.webUI_sid.get(sid)
+            if (sid != self.webUI_sno.get(sno)):
                 return jsonify([])
-            self.webui_last_access[sno] = time.time()
+            self.webUI_last_access[sno] = time.time()
 
-            return jsonify(self.webui_histories.get(str(sno) + str(mode), []))
+            return jsonify(self.webUI_histories.get(str(sno) + str(mode), []))
 
         @self.app.route('/chat_setting', methods=['GET', 'POST'])
         def chat_setting():
@@ -493,13 +493,13 @@ class _webui:
             mode = request.args.get('mode')
             qLog.log('info', self.proc_id, f"{client_ip} /chat_setting?mode={mode}")
 
-            sid = session.get('clipngpt_sid')
+            sid = session.get('ClipnGPT_sid')
             if (not sid):
                 return redirect(url_for('login'))
-            sno = self.webui_sid.get(sid)
-            if (sid != self.webui_sno.get(sno)):
+            sno = self.webUI_sid.get(sid)
+            if (sid != self.webUI_sno.get(sno)):
                 return redirect(url_for('login'))
-            self.webui_last_access[sno] = time.time()
+            self.webUI_last_access[sno] = time.time()
  
             if request.method == 'POST':
                 action_type = request.form.get('action_type')
@@ -510,7 +510,7 @@ class _webui:
                     self.gpt_req[str(sno) + str(mode)]  = request.form['request']
 
                     # Reset
-                    self.webui_histories[str(sno) + str(mode)] = []
+                    self.webUI_histories[str(sno) + str(mode)] = []
                     self.gpt_histories[str(sno) + str(mode)]   = []
 
                 elif action_type == 'cancel':
@@ -528,13 +528,13 @@ class _webui:
             client_ip = request.remote_addr
             qLog.log('info', self.proc_id, f"{client_ip} /upload")
 
-            sid = session.get('clipngpt_sid')
+            sid = session.get('ClipnGPT_sid')
             if (not sid):
                 return jsonify([])
-            sno = self.webui_sid.get(sid)
-            if (sid != self.webui_sno.get(sno)):
+            sno = self.webUI_sid.get(sid)
+            if (sid != self.webUI_sno.get(sno)):
                 return jsonify([])
-            self.webui_last_access[sno] = time.time()
+            self.webUI_last_access[sno] = time.time()
 
             if 'file' not in request.files:
                 return 'No file part'
@@ -545,7 +545,7 @@ class _webui:
                 filename = os.path.join(self.app.config['UPLOAD_FOLDER'], file.filename)
                 file.save(filename)
 
-                self.webui_files[str(sno) + str(mode)].append(filename)
+                self.webUI_files[str(sno) + str(mode)].append(filename)
 
                 # チャット履歴に追加する情報を用意
                 timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -555,12 +555,12 @@ class _webui:
                 isImage = filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))
 
                 try:
-                    self.webui_histories[str(sno) + str(mode)].append({'sender':'user', 'message': message, 'timestamp': timestamp, })
-                    self.webui_histories[str(sno) + str(mode)].append({'sender':'gpt' , 'message': response, 'timestamp': timestamp, 'downloadLink': downloadLink, "isImage": isImage})
+                    self.webUI_histories[str(sno) + str(mode)].append({'sender':'user', 'message': message, 'timestamp': timestamp, })
+                    self.webUI_histories[str(sno) + str(mode)].append({'sender':'gpt' , 'message': response, 'timestamp': timestamp, 'downloadLink': downloadLink, "isImage": isImage})
                 except:
-                    self.webui_histories[str(sno) + str(mode)] = []
-                    self.webui_histories[str(sno) + str(mode)].append({'sender':'user', 'message': message, 'timestamp': timestamp, })
-                    self.webui_histories[str(sno) + str(mode)].append({'sender':'gpt' , 'message': response, 'timestamp': timestamp, 'downloadLink': downloadLink, "isImage": isImage})
+                    self.webUI_histories[str(sno) + str(mode)] = []
+                    self.webUI_histories[str(sno) + str(mode)].append({'sender':'user', 'message': message, 'timestamp': timestamp, })
+                    self.webUI_histories[str(sno) + str(mode)].append({'sender':'gpt' , 'message': response, 'timestamp': timestamp, 'downloadLink': downloadLink, "isImage": isImage})
 
                 # クライアントに返す情報
                 return jsonify({
@@ -577,13 +577,13 @@ class _webui:
             client_ip = request.remote_addr
             qLog.log('info', self.proc_id, f"{client_ip} /uploads/{filename}")
 
-            sid = session.get('clipngpt_sid')
+            sid = session.get('ClipnGPT_sid')
             if (not sid):
                 return jsonify([])
-            sno = self.webui_sid.get(sid)
-            if (sid != self.webui_sno.get(sno)):
+            sno = self.webUI_sid.get(sid)
+            if (sid != self.webUI_sno.get(sno)):
                 return jsonify([])
-            self.webui_last_access[sno] = time.time()
+            self.webUI_last_access[sno] = time.time()
 
             return send_from_directory(self.app.config['UPLOAD_FOLDER'], filename, as_attachment=True if filename != 'dummy.png' else False)
 
@@ -592,13 +592,13 @@ class _webui:
             client_ip = request.remote_addr
             qLog.log('info', self.proc_id, f"{client_ip} /downloads/{filename}")
 
-            sid = session.get('clipngpt_sid')
+            sid = session.get('ClipnGPT_sid')
             if (not sid):
                 return jsonify([])
-            sno = self.webui_sid.get(sid)
-            if (sid != self.webui_sno.get(sno)):
+            sno = self.webUI_sid.get(sid)
+            if (sid != self.webUI_sno.get(sno)):
                 return jsonify([])
-            self.webui_last_access[sno] = time.time()
+            self.webUI_last_access[sno] = time.time()
 
             return send_from_directory(self.app.config['DOWNLOAD_FOLDER'], filename, as_attachment=True if filename != 'dummy.png' else False)
 
@@ -607,13 +607,13 @@ class _webui:
             client_ip = request.remote_addr
             qLog.log('info', self.proc_id, f"{client_ip} /synthesize_speech")
 
-            sid = session.get('clipngpt_sid')
+            sid = session.get('ClipnGPT_sid')
             if (not sid):
                 return jsonify([])
-            sno = self.webui_sid.get(sid)
-            if (sid != self.webui_sno.get(sno)):
+            sno = self.webUI_sid.get(sid)
+            if (sid != self.webUI_sno.get(sno)):
                 return jsonify([])
-            self.webui_last_access[sno] = time.time()
+            self.webUI_last_access[sno] = time.time()
 
             data = request.json
             text = data.get("speech_text")            
@@ -629,7 +629,7 @@ class _webui:
             if (self.tts_seq > 9999):
                 self.tts_seq = 1
             seq4 = '{:04}'.format(self.tts_seq)
-            outFile = qPath_work + 'webui_tts' + '.' + seq4 + '.mp3'
+            outFile = qPath_work + 'webUI_tts' + '.' + seq4 + '.mp3'
 
             if (os.path.isfile(outFile)):
                 try:
@@ -650,13 +650,13 @@ class _webui:
 
 if __name__ == '__main__':
 
-    webui = _webui()
+    webUI = _webUI()
 
     base_path = os.path.dirname(sys.argv[0]) + '/'
-    webui.init(qLog_fn='', runMode='debug', limit_mode=False, 
+    webUI.init(qLog_fn='', runMode='debug', limit_mode=False, 
                conf=None, chatbot=None, chatproc=None,
                flask_base=base_path, )
-    webui.flask_start()
+    webUI.flask_start()
 
     time.sleep(300)
 

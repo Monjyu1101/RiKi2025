@@ -39,7 +39,7 @@ class _addin:
     def __init__(self, ):
         self.runMode            = 'debug'
 
-        self.addins_path        = '_extensions/clipngpt/'
+        self.addins_path        = '_extensions/ClipnGPT/'
         self.secure_level       = 'medium' 
         self.organization_auth  = ''
         self.addin_modules      = {}
@@ -51,7 +51,7 @@ class _addin:
         self.addin_autoSandbox  = None
 
     def init(self, qLog_fn='', runMode='debug',
-                addins_path='_extensions/clipngpt/',
+                addins_path='_extensions/ClipnGPT/',
                 secure_level='medium', 
                 organization_auth='',
             ):
@@ -231,7 +231,7 @@ if __name__ == '__main__':
         # addin 初期化
         runMode   = 'debug'
         addin.init(qLog_fn='', runMode=runMode,
-                   addins_path='_extensions/clipngpt/', secure_level='low',
+                   addins_path='_extensions/ClipnGPT/', secure_level='low',
                    organization_auth='',
                   )
 
